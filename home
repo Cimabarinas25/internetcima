@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cima Prueba</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+      body.login-bg {
+          background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvHzqhLM2cXfCnZp5yGakD3w0s1bD5eR6v1g&s');
+          background-size: cover; 
+          background-repeat: no-repeat; 
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+      }
+
+      .header {
+          margin-bottom: 20px;
+      }
+
+      .logo h1 {
+          font-size: 2.5rem;
+          color: #007bff;
+          text-align: center;
+      }
+
+      .page-content {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .login-wrapper {
+          width: 500%;
+          max-width: 800px;
+          background-color: white;
+          border-radius: 8px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          padding: 20px;
+         margin-left: -20px; 
+      }
+
+      .box {
+          padding: 20px;
+      }
+
+      .content-wrap {
+          margin-bottom: 20px;
+      }
+
+      .content-wrap h6 {
+          font-size: 1.5rem;
+          margin-bottom: 20px;
+          text-align: center;
+          color: #333;
+      }
+
+      .form-control {
+          border-radius: 5px;
+          border: 1px solid #ced4da;
+          margin-bottom: 15px;
+      }
+
+      .form-control:focus {
+          border-color: #007bff;
+          box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+      }
+
+      .action {
+          text-align: center;
+      }
+
+      .btn-primary {
+          width: 100%;
+          border-radius: 5px;
+      }
+
+      .already {
+          text-align: center;
+          margin-top: 15px;
+      }
+
+      .already p {
+          margin: 0;
+      }
+
+      .already a {
+          color: #007bff;
+          text-decoration: none;
+      }
+
+      .already a:hover {
+          text-decoration: underline;
+      }
+  </style>
+</head>
+<body class="login-bg">
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-content container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-wrapper">
+                    <div class="box">
+                        <div class="content-wrap">
+                            <h6>Iniciar Sesión</h6>
+                            <input class="form-control" type="text" placeholder="Usuario">
+                            <input class="form-control" type="password" placeholder="Contraseña">
+                            <div class="action">
+                                <a class="btn btn-primary" href="index.html">Entrar</a>
+                            </div>                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
