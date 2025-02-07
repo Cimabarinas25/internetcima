@@ -1,0 +1,234 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['usuario'])) {
+    header('Location: login.html');
+    exit();
+}
+
+$conexion = mysqli_connect("localhost", "root", "", "db_cima") or die(mysqli_error());
+
+// Establecer la fecha y hora actual
+$fecha_creacion = date("Y-m-d H:i:s");
+$fecha_creacion = mysqli_real_escape_string($conexion, $fecha_creacion);
+
+// Insertar la fecha en la base de datos (suponiendo que hay una tabla "nuevo" para esto)
+$consulta_insertar_nuevo = "INSERT INTO nuevo (fecha_creacion) VALUES (?)";
+$statement_insertar_nuevo = mysqli_prepare($conexion, $consulta_insertar_nuevo);
+
+mysqli_stmt_bind_param($statement_insertar_nuevo, 's', $fecha_creacion);
+
+if (!mysqli_stmt_execute($statement_insertar_nuevo)) {
+    die('Error: ' . mysqli_stmt_error($statement_insertar_nuevo));
+}
+
+mysqli_stmt_close($statement_insertar_nuevo);
+
+// Consultar los usuarios por tipo
+$query = "SELECT tipo, COUNT(*) as count FROM usuarios GROUP BY tipo";
+$result = mysqli_query($conexion, $query);
+
+// Inicializar los arrays para los tipos y las cuentas
+$tipos = [];
+$cuentas = [];
+
+// Recoger los resultados de la consulta
+while ($row = mysqli_fetch_assoc($result)) {
+    $tipos[] = $row['tipo'];
+    $cuentas[] = $row['count'];
+}
+
+mysqli_close($conexion);
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cima Prueba</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: #007bff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 20px;
+      transition: transform 0.3s ease-in-out;
+      transform: translateX(0);
+    }
+    .sidebar.hidden {
+      transform: translateX(-100%);
+    }
+    .sidebar h2 {
+      color: white;
+      text-align: center;
+    }
+    .nav-link {
+      color: white;
+    }
+    .nav-link:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    .content {
+      margin-left: 250px;
+      padding: 20px;
+      transition: margin-left 0.3s ease-in-out;
+    }
+    .content.full-width {
+      margin-left: 0;
+    }
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+   
+  </style>
+</head>
+<body>
+  <!-- Botón para abrir/cerrar el menú -->
+  <button class="toggle-btn" id="toggleSidebar"><i class="fas fa-bars"></i></button>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <h2>Panel</h2>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a href="clientes.html" class="nav-link"><i class="fas fa-users"></i> Clientes</a>
+      </li>
+      <li class="nav-item">
+        <a href="finanzas.html" class="nav-link"><i class="fas fa-dollar-sign"></i> Finanzas</a>
+      </li>
+      <li class="nav-item">
+        <a href="sistema.html" class="nav-link"><i class="fas fa-cogs"></i> Sistema</a>
+      </li>
+      <li class="nav-item">
+        <a href="ipv4.html" class="nav-link"><i class="fas fa-network-wired"></i> IPV6</a>
+      </li>
+      <li class="nav-item">
+        <a href="soporte.html" class="nav-link"><i class="fas fa-headset"></i> Soporte Técnico</a>
+      </li>
+      <li class="nav-item">
+        <a href="cerrar_sesion.html" class="nav-link"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+      </li>
+    </ul>
+  </div>
+
+  <div style="text-align: left; padding: 10px; color: #007bff;" class="container mt-5">
+     <h1><?php echo "Bienvenido: " . $_SESSION['usuario']['nombre']; ?></h1>
+    <div style="text-align: right; padding: 10px; color: #3498db; ">
+       <?php
+           $fecha_actual = date("Y-m-d H:i:s");
+           echo "La fecha y hora actual es: " . $fecha_actual;
+       ?>
+    </div>
+
+
+  <!-- Contenido principal -->
+  <div class="content" id="content">
+    <h1 class="mb-4"><i class="fas fa-dashboard"></i> Dashboard</h1>
+    <div class="row">
+      <!-- Pagos Internet -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title text-primary"><i class="fas fa-dollar-sign"></i> Pagos Internet</h5>
+            <p class="text-success">$0.00 <small>HOY - 0 PAGOS</small></p>
+            <p>$29,468.00 <small>PENDIENTE - 46 PAGOS</small></p>
+            <p>$170.00 <small>NOVIEMBRE - 1 PAGOS</small></p>
+          </div>
+        </div>
+      </div>
+      <!-- Clientes -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title text-primary"><i class="fas fa-users"></i> Clientes</h5>
+            <p>0 <small>HOY</small></p>
+            <p>1 <small>NOVIEMBRE</small></p>
+            <p>27 <small>TOTAL</small></p>
+          </div>
+        </div>
+      </div>
+      <!-- Tickets -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title text-primary"><i class="fas fa-ticket-alt"></i> Tickets</h5>
+            <p>0 <small>HOY</small></p>
+            <p>1 <small>PENDIENTES</small></p>
+            <p>0 <small>NOVIEMBRE</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Tráfico -->
+    <div class="row">
+      <div class="col-lg-6 col-md-6 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title text-primary"><i class="fas fa-sync"></i> Tráfico</h5>
+            <p><i class="fas fa-download"></i> 0 GiB <small>TOTAL DESCARGA</small></p>
+            <p><i class="fas fa-upload"></i> 0 GiB <small>TOTAL SUBIDA</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Gráfico de Usuarios Registrados -->
+    <div class="container">
+        <h2>Dashboard de Usuarios Registrados</h2>
+        <canvas id="userChart" width="400" height="200"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+              const config = {
+  type: 'doughnut',
+  data: data,
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Chart.js Doughnut Chart'
+      }
+    }
+  },
+};
+        </script>
+    </div>
+  <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const toggleBtn = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+            content.classList.toggle('full-width');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Cima Prueba</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome para iconos -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: #007bff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 20px;
+      transition: transform 0.3s ease-in-out;
+      transform: translateX(0);
+    }
+    .sidebar.hidden {
+      transform: translateX(-100%);
+    }
+    .sidebar h2 {
+      color: white;
+      text-align: center;
+    }
+    .nav-link {
+      color: white;
+    }
+    .nav-link:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    .content {
+      margin-left: 250px;
+      padding: 20px;
+      transition: margin-left 0.3s ease-in-out;
+    }
+    .content.full-width {
+      margin-left: 0;
+    }
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    .card {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Botón para abrir/cerrar el menú -->
+  <button class="toggle-btn" id="toggleSidebar"><i class="fas fa-bars"></i></button>
+
+   <!-- Botón para abrir/cerrar el menú -->
+  <button class="toggle-btn" id="toggleSidebar"><i class="fas fa-bars"></i></button>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <h2>Panel</h2>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a href="clientes.html" class="nav-link"><i class="fas fa-users"></i> Clientes</a>
+      </li>
+      <li class="nav-item">
+        <a href="finanzas.html" class="nav-link"><i class="fas fa-dollar-sign"></i> Finanzas</a>
+      </li>
+      <li class="nav-item">
+      <a href="sistema.html" class="nav-link"><i class="fas fa-cogs"></i> Sistema</a>
+    </li>
+    
+     <li class="nav-item">
+    <a href="ipv4.html" class="nav-link"><i class="fas fa-network-wired"></i> IPV6</a>
+    </li>
+   
+      <li class="nav-item">
+        <a href="soporte.html" class="nav-link"><i class="fas fa-headset"></i> Soporte Técnico</a>
+      </li>
+     
+      <li class="nav-item">
+        <a href="cerrar_sesion.html" class="nav-link"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+      </li>
+    </ul>
+  </div>
+  </div>
+
+  <div class="content" id="content">
+    <div class="container mt-4">
+      <h1 class="text-center"><i class="fas fa-network-wired"></i> Dashboard de Configuración PPPoE</h1>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fas fa-network-wired"></i> Crear Pool de IP</h5>
+              <p class="card-text">Configura un pool de IP para los clientes PPPoE.</p>
+              <button class="btn btn-primary" onclick="crearPool()">Crear Pool</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fas fa-user-plus"></i> Crear Perfil PPPoE</h5>
+              <p class="card-text">Define un perfil para los clientes PPPoE.</p>
+              <button class="btn btn-info" onclick="crearPerfil()">Crear Perfil</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fas fa-server"></i> Crear Servidor PPPoE</h5>
+              <p class="card-text">Configura el servidor PPPoE en el router.</p>
+              <button class="btn btn-success" onclick="crearServidor()">Crear Servidor</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fas fa-user"></i> Agregar Cliente PPPoE</h5>
+              <p class="card-text">Añade un nuevo cliente PPPoE.</p>
+              <button class="btn btn-warning" onclick="agregarCliente()">Agregar Cliente</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fas fa-eye"></i> Visualizar Clientes Activos</h5>
+              <p class="card-text">Muestra los clientes que están conectados.</p>
+              <button class="btn btn-danger" onclick="visualizarClientes()">Ver Activos</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('hidden');
+      content.classList.toggle('full-width');
+    });
+
+    // Funciones para interactuar con la API de MikroTik
+    async function crearPool() {
+      const response = await fetch('/api/pool', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: 'pppoe-pool',
+          ranges: '192.168.88.10-192.168.88.100'
+        })
+      });
+      const data = await response.json();
+      alert('Pool creado: ' + data);
+    }
+
+    async function crearPerfil() {
+      const response = await fetch('/api/profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: 'Plan Básico',
+          localAddress: '192.168.88.1',
+          remoteAddress: 'pppoe-pool',
+          rateLimit: '1M/1M'
+        })
+      });
+      const data = await response.json();
+      alert('Perfil creado: ' + data);
+    }
+
+    async function crearServidor() {
+      const response = await fetch('/api/pppoe-server', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: 'pppoe-server1',
+          interface: 'ether1',
+          serviceName: 'PPPoE-Servicio',
+          maxMTU: 1480,
+          maxMRU: 1480,
+          authentication: ['pap', 'chap']
+        })
+      });
+      const data = await response.json();
+      alert('Servidor creado: ' + data);
+    }
+
+    async function agregarCliente() {
+      const response = await fetch('/api/client', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: 'cliente1',
+          password: 'contraseña1',
+          profile: 'Plan Básico',
+          service: 'pppoe'
+        })
+      });
+      const data = await response.json();
+      alert('Cliente agregado: ' + data);
+    }
+
+    async function visualizarClientes() {
+      const response = await fetch('/api/active-clients');
+      const data = await response.json();
+      alert('Clientes activos: ' + JSON.stringify(data));
+    }
+  </script>
+</body>
+</html>

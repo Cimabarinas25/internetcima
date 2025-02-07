@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Cima Prueba</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome para iconos -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: #007bff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 20px;
+      transition: transform 0.3s ease-in-out;
+      transform: translateX(0);
+    }
+    .sidebar.hidden {
+      transform: translateX(-100%);
+    }
+    .sidebar h2 {
+      color: white;
+      text-align: center;
+    }
+    .nav-link {
+      color: white;
+    }
+    .nav-link:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    .content {
+      margin-left: 250px;
+      padding: 20px;
+      transition: margin-left 0.3s ease-in-out;
+    }
+    .content.full-width {
+      margin-left: 0;
+    }
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    .table th, .table td {
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <!-- Botón para abrir/cerrar el menú -->
+  <button class="toggle-btn" id="toggleSidebar"><i class="fas fa-bars"></i></button>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <h2>Panel</h2>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a href="clientes.html" class="nav-link"><i class="fas fa-users"></i> Clientes</a>
+      </li>
+      <li class="nav-item">
+        <a href="finanzas.html" class="nav-link"><i class="fas fa-dollar-sign"></i> Finanzas</a>
+      </li>
+      <li class="nav-item">
+      <a href="sistema.html" class="nav-link"><i class="fas fa-cogs"></i> Sistema</a>
+    </li>
+    
+     <li class="nav-item">
+    <a href="ipv4.html" class="nav-link"><i class="fas fa-network-wired"></i> IPV6</a>
+    </li>
+   
+      <li class="nav-item">
+        <a href="soporte.html" class="nav-link"><i class="fas fa-headset"></i> Soporte Técnico</a>
+      </li>
+     
+      <li class="nav-item">
+        <a href="cerrar_sesion.html" class="nav-link"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="content" id="content">
+    <h1 class="mb-4"><i class="fas fa-users"></i> Lista de Clientes</h1>
+    
+    <!-- Botón para añadir cliente -->
+    <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addClientModal">
+      <i class="fas fa-plus"></i> Añadir Cliente
+    </button>
+
+    <!-- Tabla de Clientes -->
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>IP</th>
+            <th>Estado</th>
+            <th>Zona</th>
+            <th>Estado de Factura</th>
+            <th>Fecha Pagada</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Juan Pérez</td>
+            <td>192.168.1.1</td>
+            <td>Activo</td>
+            <td>Zona 1</td>
+            <td>Pagada</td>
+            <td>2025-02-01</td>
+            <td>
+              <a href="#" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
+              <a href="#" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</a>
+              <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</a>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>María López</td>
+            <td>192.168.1.2</td>
+            <td>Inactivo</td>
+            <td>Zona 2</td>
+            <td>No Pagada</td>
+            <td>N/A</td>
+            <td>
+              <a href="#" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
+              <a href="#" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</a>
+              <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</a>
+            </td>
+          </tr>
+          <!-- Agrega más filas según sea necesario -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Modal para añadir cliente -->
+    <div class="modal fade" id="addClientModal" tabindex="-1" aria-labelledby="addClientModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addClientModalLabel">Añadir Cliente</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="clientName" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="clientName" required>
+              </div>
+                <div class="mb-3">
+                <label for="clientName" class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="clientName" required>
+              </div>
+                <div class="mb-3">
+                <label for="clientName" class="form-label">Sexo: Femenino o masculino</label>
+                <input type="text" class="form-control" id="clientName" required>
+              </div>
+                 <div class="mb-3">
+                <label for="clientName" class="form-label">Fecha de Nacimiento</label>
+                <input type="text" class="form-control" id="clientName" required>
+              </div>
+                 <div class="mb-3">
+                <label for="clientName" class="form-label">Cuantos hijos tiene: hembra o varon</label>
+                <input type="text" class="form-control" id="clientName" required>
+              </div>
+                 <div class="mb-3">
+                <label for="clientName" class="form-label">Pertenece a una comunidad etnia: si o no </label>
+                <input type="text" class="form-control" id="clientName" required>
+              </div>
+              <div class="mb-3">
+                <label for="clientIP" class="form-label">IP</label>
+                <input type="text" class="form-control" id="clientIP" required>
+              </div>
+              <div class="mb-3">
+                <label for="clientStatus" class="form-label">Estado</label>
+                <select class="form-select" id="clientStatus" required>
+                  <option value="Activo">Activo</option>
+                  <option value="Inactivo">Inactivo</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="clientZone" class="form-label">Zona</label>
+                <input type="text" class="form-control" id="clientZone" required>
+              </div>
+              <div class="mb-3">
+                <label for="invoiceStatus" class="form-label">Estado de Factura</label>
+                <select class="form-select" id="invoiceStatus" required>
+                  <option value="Pagada">Pagada</option>
+                  <option value="No Pagada">No Pagada</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="paymentDate" class="form-label">Fecha Pagada</label>
+                <input type="date" class="form-control" id="paymentDate">
+              </div>
+              <button type="submit" class="btn btn-primary">Añadir Cliente</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  <h2 class="mt-4">Acciones Frecuentes</h2>
+<div class="row">
+  <div class="col-md-4">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">🔄 Activar Cliente</h5>
+        <p>Activa el cliente en el sistema.</p>
+        <a href="#" class="btn btn-primary">Activar</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">⏸️ Desactivar Cliente</h5>
+        <p>Desactiva el cliente en el sistema.</p>
+        <a href="#" class="btn btn-primary">Desactivar</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">❌ Cancelar Cliente</h5>
+        <p>Cancela la cuenta del cliente.</p>
+        <a href="#" class="btn btn-primary">Cancelar</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-md-4">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">🗑️ Eliminar Cliente</h5>
+        <p>Elimina al cliente del sistema.</p>
+        <a href="#" class="btn btn-primary">Eliminar</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">🧾 Generar Factura</h5>
+        <p>Genera una factura para el cliente.</p>
+        <a href="#" class="btn btn-primary">Generar</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">📄 Generar Contrato</h5>
+        <p>Genera un contrato para el cliente.</p>
+        <a href="#" class="btn btn-primary">Generar</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-md-4">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">🔑 Actualizar Password</h5>
+        <p>Actualiza la contraseña del cliente.</p>
+        <a href="#" class="btn btn-primary">Actualizar</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">📜 Ver Historial de Pagos</h5>
+        <p>Muestra el historial de pagos del cliente.</p>
+        <a href="#" class="btn btn-primary">Ver</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">🎟️ Ver Historial de Tickets</h5>
+        <p>Muestra el historial de tickets del cliente.</p>
+        <a href="#" class="btn btn-primary">Ver</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('hidden');
+      content.classList.toggle('full-width');
+    });
+  </script>
+</body>
+</html>
